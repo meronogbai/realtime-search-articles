@@ -29,6 +29,9 @@ gem 'jbuilder', '~> 2.7'
 gem 'activeadmin'
 gem 'devise'
 
+# Style your pages using bootstrap
+gem 'bootstrap', '~> 5.0.0.beta2'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
