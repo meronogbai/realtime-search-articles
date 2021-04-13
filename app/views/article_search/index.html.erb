@@ -1,3 +1,15 @@
 <h1>Hi, customer!</h1>
-<p>Search for you favorite help articles!</p>
-<%= render 'form' %>
+<div data-controller="search">
+  <%= form_with url: article_search_path,
+    method: :get,
+    local: false,
+    data: { action: 'submit->search#submit' } do |form| %>
+    <%= form.text_field :query,
+      autocomplete: 'off',
+      placeholder: 'Search for you favorite help articles!',
+      class: 'form-control px-5 py-2',
+      data: { 'search-target': 'query' } %>
+  <% end %>
+  <ul class="list-group" data-search-target="articles">
+  </ul>
+</div>
