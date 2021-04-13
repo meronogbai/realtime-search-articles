@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'articles#index'
+  root to: 'article_search#index'
+  get 'search', to: 'article_search#search', as: :article_search
   resources :articles, only: [:index, :show]
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
