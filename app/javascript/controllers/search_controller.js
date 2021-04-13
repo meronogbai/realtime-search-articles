@@ -9,10 +9,11 @@ export default class extends Controller {
     fetch(`/search?query=${value}`, { headers: { accept: "application/json" } })
     .then(response => response.json())
     .then(data => {
-      this.articlesTarget.innerHTML = ""
+      let articlesHTML = ""
       data.articles.forEach(article => {
-        this.articlesTarget.innerHTML += this.articleTemplate(article)
+        articlesHTML += this.articleTemplate(article)
       })
+      this.articlesTarget.innerHTML = articlesHTML
     })
   }
 
