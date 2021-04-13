@@ -3,7 +3,8 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   static targets = [ "query", "articles" ]
 
-  submit() {
+  submit(event) {
+    event.preventDefault()
     const value = this.queryTarget.value
     fetch(`/search?query=${value}`, { headers: { accept: "application/json" } })
     .then(response => response.json())
