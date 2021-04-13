@@ -1,0 +1,4 @@
+<%= link_to article, class: 'text-reset text-decoration-none my-3 d-block shadow-sm p-3' do %>
+  <%= content_tag :h2, article.title, class: 'text-truncate' %>
+  <%= content_tag :p, article.body, class: 'text-truncate' %>
+<% end %>
