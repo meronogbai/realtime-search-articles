@@ -18,7 +18,9 @@ class Search < ApplicationRecord
   validates :query, presence: :true
 
   def intermediate_search?(other_search)
-    query&.delete(' ')&.start_with? other_search&.query&.delete(' ')
+    new_query = query&.delete(' ')&.downcase
+    previous_query = other_search&.query&.delete(' ')&.downcase
+    new_query&.start_with? previous_query
   end
 
   private
