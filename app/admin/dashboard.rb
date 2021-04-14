@@ -7,6 +7,8 @@ ActiveAdmin.register_page "Dashboard" do
       pie_chart Search.group(:query).order(count: :desc).limit(5).count
     end
 
+    h3 link_to('View all searches!', searches_path)
+
     # Here is an example of a simple dashboard with columns and panels.
     #
     # columns do
