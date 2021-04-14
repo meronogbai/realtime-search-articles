@@ -31,7 +31,7 @@ RSpec.describe Search, type: :model do
     expect(@user.searches.last.query).to eq 'how is emil hajric doing?'
   end
 
-  it 'deletes previous search if new query starts with previous query and case whitespace' do
+  it 'deletes previous search if new query starts with previous query and ignores case' do
     @user.searches.create([
       { query: 'hello' },
       { query: 'Hello world' },
@@ -41,7 +41,23 @@ RSpec.describe Search, type: :model do
     expect(@user.searches.last.query).to eq 'hello world how are you?'
   end
 
-  it "invalidate search if query is a subset of previous query" do
+  it 'validates search if query is present' do
+    search = @user.searches.create(query: 'test')
+    expect(search.valid?).to be true
+  end
+
+  it 'invalidates search if query is absent' do
+    search = @user.searches.build()
+    expect(search.valid?).to be false
+  end
+
+  it 'validates search if query is not a subset of previous query' do
+    first_search = @user.searches.create(query: 'Hello world')
+    second_search = @user.searches.create(query: 'Hello world!')
+    expect(second_search.valid?).to be true
+  end
+
+  it "invalidates search if query is a subset of previous query" do
     first_search = @user.searches.create(query: 'Hello world')
     second_search = @user.searches.create(query: 'Hello worl')
     expect(second_search.valid?).to be false
