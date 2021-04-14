@@ -1,0 +1,2 @@
+<%= content_tag :h3, search.query %>
+<%= line_chart Search.group_by_day(:created_at).where(query: search.query).count %>

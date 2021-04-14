@@ -37,6 +37,7 @@ gem 'pg_search'
 
 # Use chartkick to display beautify charts
 gem 'chartkick'
+gem 'groupdate'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
