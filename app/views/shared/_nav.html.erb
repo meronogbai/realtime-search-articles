@@ -1,6 +1,16 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <%= link_to 'Realtime Search', root_path, class:'navbar-brand' %>
-    <%= link_to 'All Articles', articles_path, class: 'nav-link text-dark' %>
+    <ul class="navbar-nav flex-row gap-3">
+      <li class="nav-item">
+        <%= link_to 'Analytics', searches_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Admin', admin_dashboard_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Articles', articles_path, class: 'nav-link' %>
+      </li>
+    </ul>
   </div>
 </nav>
