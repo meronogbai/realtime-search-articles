@@ -16,19 +16,21 @@ class Search < ApplicationRecord
 
   def delete_intermediate_searches
     previous_search = user.searches.last
+    return unless previous_search
 
     previous_search.destroy if intermediate_search? previous_search
   end
 
   def query_cannot_be_subset_of_previous_query
-    errors.add(:query, "can't be subset of previous query") if user.searches.last&.intermediate_search? self
+    previous_search = user.searches.last
+    return unless previous_search
+
+    errors.add(:query, "can't be subset of previous query") if previous_search.intermediate_search? self
   end
 
   protected
 
   def intermediate_search?(other_search)
-    return unless other_search
-
     query.delete(' ').start_with? other_search.query.delete(' ')
   end
 end
