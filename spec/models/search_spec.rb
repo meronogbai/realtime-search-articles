@@ -42,19 +42,21 @@ RSpec.describe Search, type: :model do
   end
 
   it 'validates search if query is present' do
-    search = @user.searches.create(query: 'test')
-    expect(search.valid?).to be true
+    search = @user.searches.build(query: 'test')
+    search.valid?
+    expect(search.errors[:query]).to match_array('is an intermediate search')
   end
 
   it 'invalidates search if query is absent' do
     search = @user.searches.build()
-    expect(search.valid?).to be false
+    search.valid?
+    expect(search.errors[:query]).to eq ["can't be blank"]
   end
 
   it 'validates search if query is not a subset of previous query' do
     first_search = @user.searches.create(query: 'Hello world')
     second_search = @user.searches.create(query: 'Hello world!')
-    expect(second_search.valid?).to be true
+    expect(second_search.errors[:query]).not_to match_array('is an intermediate search')
   end
 
   it "invalidates search if query is a subset of previous query" do

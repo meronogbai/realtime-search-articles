@@ -1,36 +1,37 @@
+class QueryValidator < ActiveModel::Validator
+  def validate(record)
+    previous_search = record.user.searches.last
+    return unless previous_search
+
+    record.errors.add :query, 'is an intermediate search' if previous_search.intermediate_search? record
+  end
+end
+
 class Search < ApplicationRecord
   belongs_to :user
 
-  # Delete the previous search from the same user (identified by uuid)
-  # if the new search query starts with the same text
+  before_save :downcase_query
+  before_create :delete_intermediate_searches
 
-  before_validation :to_lower, :delete_intermediate_searches
+  include ActiveModel::Validations
+  validates_with QueryValidator
+  validates :query, presence: :true
 
-  validate :query_cannot_be_subset_of_previous_query
+  def intermediate_search?(other_search)
+    query&.delete(' ')&.start_with? other_search&.query&.delete(' ')
+  end
 
   private
 
-  def to_lower
+  def downcase_query
     query.downcase!
   end
 
+  # deletes previous search if new query starts with previous query
   def delete_intermediate_searches
     previous_search = user.searches.last
     return unless previous_search
 
     previous_search.destroy if intermediate_search? previous_search
-  end
-
-  def query_cannot_be_subset_of_previous_query
-    previous_search = user.searches.last
-    return unless previous_search
-
-    errors.add(:query, "can't be subset of previous query") if previous_search.intermediate_search? self
-  end
-
-  protected
-
-  def intermediate_search?(other_search)
-    query.delete(' ').start_with? other_search.query.delete(' ')
   end
 end
