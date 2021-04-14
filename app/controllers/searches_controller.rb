@@ -4,4 +4,8 @@ class SearchesController < ApplicationController
   def index
     @searches = Search.select(:query).distinct
   end
+
+  def top
+    @top = Search.group(:query).order(count: :desc).limit(5).count
+  end
 end
