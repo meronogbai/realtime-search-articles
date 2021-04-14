@@ -60,6 +60,8 @@ group :development do
   gem 'spring'
   # Visualize the db in the rails console using hirb
   gem 'hirb'
+  # Use rubocop to lint your code
+  gem 'rubocop', '~> 0.81.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
