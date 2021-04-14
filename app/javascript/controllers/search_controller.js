@@ -1,14 +1,14 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "query", "articles" ]
+  static targets = [ "title", "articles" ]
 
-  submit(event) {
-    event.preventDefault()
-    const value = this.queryTarget.value
+  realtimeSearch(event) {
+    const value = event.target.value
     fetch(`/search?query=${value}`, { headers: { accept: "application/json" } })
     .then(response => response.json())
     .then(data => {
+      this.titleTarget.innerHTML = data.articles.length == 0 ? "": "Search results"
       let articlesHTML = ""
       data.articles.forEach(article => {
         articlesHTML += this.articleTemplate(article)
