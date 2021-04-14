@@ -18,7 +18,7 @@ RSpec.describe Search, type: :model do
       { query: 'What is a good car?' },
     ])
     expect(@user.searches.count).to eq 1
-    expect(@user.searches.first.query).to eq 'what is a good car?'
+    expect(@user.searches.last.query).to eq 'what is a good car?'
   end
 
   it 'deletes previous search if new query starts with previous query and ignores whitespace' do
@@ -28,7 +28,7 @@ RSpec.describe Search, type: :model do
       { query: 'How is emil hajric doing?' },
     ])
     expect(@user.searches.count).to eq 1
-    expect(@user.searches.first.query).to eq 'how is emil hajric doing?'
+    expect(@user.searches.last.query).to eq 'how is emil hajric doing?'
   end
 
   it 'deletes previous search if new query starts with previous query and case whitespace' do
@@ -38,6 +38,12 @@ RSpec.describe Search, type: :model do
       { query: 'Hello world how are you?' },
     ])
     expect(@user.searches.count).to eq 1
-    expect(@user.searches.first.query).to eq 'hello world how are you?'
+    expect(@user.searches.last.query).to eq 'hello world how are you?'
+  end
+
+  it "invalidate search if query is a subset of previous query" do
+    first_search = @user.searches.create(query: 'Hello world')
+    second_search = @user.searches.create(query: 'Hello worl')
+    expect(second_search.valid?).to be false
   end
 end

@@ -6,6 +6,8 @@ class Search < ApplicationRecord
 
   before_validation :to_lower, :delete_intermediate_searches
 
+  validate :query_cannot_be_subset_of_previous_query
+
   private
 
   def to_lower
@@ -13,9 +15,18 @@ class Search < ApplicationRecord
   end
 
   def delete_intermediate_searches
-    prev_search = user.searches.last
-    return unless prev_search
+    previous_search = user.searches.last
+    return unless previous_search
 
-    prev_search.destroy if query.delete(' ').start_with? prev_search.query.delete(' ')
+    previous_search.destroy if query.delete(' ').start_with? previous_search.query.delete(' ')
+  end
+
+  def query_cannot_be_subset_of_previous_query
+    previous_search = user.searches.last
+    return unless previous_search
+
+    if previous_search.query.delete(' ').start_with? query.delete(' ')
+      errors.add(:query, "can't be subset of previous query")
+    end
   end
 end
