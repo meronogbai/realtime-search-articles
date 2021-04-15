@@ -6,6 +6,6 @@ class SearchesController < ApplicationController
   end
 
   def top
-    @top = Search.group(:query).order(count: :desc).limit(5).count
+    @top = Search.top_five
   end
 end

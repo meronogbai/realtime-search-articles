@@ -1,4 +1,5 @@
 class Search < ApplicationRecord
+  scope :top_five, -> { group(:query).order(count: :desc).limit(5).count }
   belongs_to :user
 
   before_validation :downcase_query

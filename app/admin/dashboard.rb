@@ -4,7 +4,7 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc { I18n.t("active_admin.dashboard") } do
     h2 'Top Searches'
     div class: "blank_slate_container", id: "dashboard_default_message" do
-      pie_chart Search.group(:query).order(count: :desc).limit(5).count
+      pie_chart Search.top_five
     end
 
     h3 link_to('View all searches!', searches_path)
