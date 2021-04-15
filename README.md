@@ -111,6 +111,18 @@ bundle exec rspec
 
 ![ERD](./screenshots/ERD.png)
 
+### Tracking a user
+
+A user record is created in the Users table when a browser that doesn't have the user_uuid cookie visits the app. Then the user_uuid cookie is set in the browser which will help us keep track of what that user searches. I chose this approach to track users because it made much more sense to me when compared to forcing someone to authenticate before searching.
+
+### Admin
+
+I chose ActiveAdmin to build an admin dashboard because it simplifies the process of creating articles that can be seached and visited by normal users. It also makes it easier to only allow admins to view the analytics.
+
+### Frontend
+
+I used Bootstrap for styling the app, because it's perfect for simple and quick designs. I used Stimulus to handle the search. Debounced when used with Stimulus makes it easy to control the number of realtime search GET requests.
+
 ## Author
 
 👤 **Meron Ogbai**
