@@ -5,7 +5,7 @@
     autocomplete: 'off',
     placeholder: 'Search for you favorite help articles!',
     class: 'form-control px-5 py-2',
-    data: { action: 'keyup->search#realtimeSearch' } %>
+    data: { action: 'debounced:input->search#realtimeSearch' } %>
     <h2 data-search-target="title"></h2>
   <ul class="list-group" data-search-target="articles">
   </ul>
