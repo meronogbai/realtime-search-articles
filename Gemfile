@@ -39,6 +39,9 @@ gem 'pg_search'
 gem 'chartkick'
 gem 'groupdate'
 
+# Paginate your resources using will_paginate
+gem 'will_paginate', '~> 3.1.0'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
