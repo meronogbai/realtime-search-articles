@@ -5,9 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 Article.create!([
   { title: 'Hello world how are you?', body: 'Lorem ipsum dolor sit amet.' },
   { title: 'What is a good car?', body: 'Lorem ipsum dolor sit amet.' },
-  { title: 'How is Emil Hajric doing?', body: 'Lorem ipsum dolor sit amet.' }
+  { title: 'How is Emil Hajric doing?', body: 'Lorem ipsum dolor sit amet.' },
+  { title: 'Movies', body: 'I love watching movies.' }
 ])
