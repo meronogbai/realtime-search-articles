@@ -5,17 +5,36 @@
 ## Screenshots
 
 ### Home page
+
 ![screenshot](./screenshots/home.png)
+
 ### Top searches page
+
 ![screenshot](./screenshots/top-searches.png)
+
 ### ActiveAdmin interface
+
 ![screenshot](./screenshots/admin.png)
 
 ## Features
 
 - Users can search for the articles they need in realtime
 - Admin users can view analytics and trends about user searches
-- Only admin users can create articles via the ActiveAdmin dashboard
+- Admin users can create articles via the ActiveAdmin dashboard
+
+## FAQs
+
+### How to search for articles?
+
+Vist `/` and type into the search box.
+
+### How to create, update or delete an article?
+
+Go to the admin dashboard by visiting `/admin` and click on Articles in the navbar.
+
+### How to view the analytics?
+
+Go to `/searches` to look at all the searches with their analytics.
 
 ## Built With
 
@@ -86,6 +105,12 @@ Go to your favorite web browser and visit `http://localhost:3000`.
 bundle exec rspec
 ```
 
+## Design
+
+### Entity Relationship Diagram (ERD)
+
+![ERD](./screenshots/ERD.png)
+
 ## Author
 
 👤 **Meron Ogbai**
@@ -101,6 +126,10 @@ Contributions, issues, and feature requests are welcome!
 ## Show your support
 
 Give a ⭐️ if you like this project!
+
+## Acknowledgements
+
+- [unsplash](https://unsplash.com/photos/Oaqk7qqNh_c?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink)
 
 ## 📝 License
 
