@@ -13,7 +13,7 @@ RSpec.describe Search, type: :model do
 
   it 'deletes previous search if new query starts with previous query' do
     @user.searches.create([
-      { query: 'What' },
+      { query: 'What is' },
       { query: 'What is a' },
       { query: 'What is a good car?' },
     ])
@@ -43,25 +43,11 @@ RSpec.describe Search, type: :model do
 
   it 'validates search if query is present' do
     search = @user.searches.build(query: 'test')
-    search.valid?
-    expect(search.errors[:query]).to match_array('is an intermediate search')
+    expect(search.valid?).to be true
   end
 
   it 'invalidates search if query is absent' do
     search = @user.searches.build()
-    search.valid?
-    expect(search.errors[:query]).to eq ["can't be blank"]
-  end
-
-  it 'validates search if query is not a subset of previous query' do
-    first_search = @user.searches.create(query: 'Hello world')
-    second_search = @user.searches.create(query: 'Hello world!')
-    expect(second_search.errors[:query]).not_to match_array('is an intermediate search')
-  end
-
-  it "invalidates search if query is a subset of previous query" do
-    first_search = @user.searches.create(query: 'Hello world')
-    second_search = @user.searches.create(query: 'Hello worl')
-    expect(second_search.valid?).to be false
+    expect(search.valid?).to be false
   end
 end

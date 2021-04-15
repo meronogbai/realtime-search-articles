@@ -1,39 +1,20 @@
-class QueryValidator < ActiveModel::Validator
-  def validate(record)
-    previous_search = record.user.searches.last
-    return unless previous_search
-
-    record.errors.add :query, 'is an intermediate search' if previous_search.intermediate_search? record
-  end
-end
-
 class Search < ApplicationRecord
   belongs_to :user
 
-  before_save :downcase_query
-  before_create :delete_intermediate_searches
-
-  include ActiveModel::Validations
-  validates_with QueryValidator
+  before_validation :downcase_query, :delete_intermediate_searches
   validates :query, presence: :true
-
-  def intermediate_search?(other_search)
-    new_query = query&.delete(' ')&.downcase
-    previous_query = other_search&.query&.delete(' ')&.downcase
-    new_query&.start_with? previous_query
-  end
 
   private
 
   def downcase_query
-    query.downcase!
+    query&.downcase!
   end
 
-  # deletes previous search if new query starts with previous query
+  # deletes previous search if intermediate
   def delete_intermediate_searches
     previous_search = user.searches.last
     return unless previous_search
 
-    previous_search.destroy if intermediate_search? previous_search
+    previous_search.destroy if String::Similarity.cosine(previous_search.query, query) > 0.70
   end
 end
