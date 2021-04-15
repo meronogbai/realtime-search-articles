@@ -1,7 +1,8 @@
 class Search < ApplicationRecord
   belongs_to :user
 
-  before_validation :downcase_query, :delete_intermediate_searches
+  before_validation :downcase_query
+  after_commit :delete_intermediate_searches, on: :create
   validates :query, presence: :true
 
   private
@@ -10,11 +11,21 @@ class Search < ApplicationRecord
     query&.downcase!
   end
 
-  # deletes previous search if intermediate
   def delete_intermediate_searches
-    previous_search = user.searches.last
+    previous_search = user.searches[-2]
+    new_search = user.searches[-1]
     return unless previous_search
 
-    previous_search.destroy if String::Similarity.cosine(previous_search.query, query) > 0.70
+    if previous_search.is_subset_of? new_search
+      previous_search.destroy
+    elsif new_search.is_subset_of? previous_search
+      new_search.destroy
+    end
+  end
+
+  protected
+
+  def is_subset_of?(other_search)
+    other_search.query.delete(' ').start_with? query.delete(' ')
   end
 end

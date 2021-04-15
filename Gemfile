@@ -25,9 +25,6 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-# Check string similarity
-gem 'string-similarity'
-
 # Use activeadmin to create administration style interfaces
 gem 'activeadmin'
 gem 'devise'

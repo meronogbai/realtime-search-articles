@@ -41,6 +41,16 @@ RSpec.describe Search, type: :model do
     expect(@user.searches.last.query).to eq 'hello world how are you?'
   end
 
+  it 'deletes new search if previous query starts with new query' do
+    @user.searches.create([
+      { query: 'Hello world how are you?' },
+      { query: 'Hello world' },
+      { query: 'hello' },
+    ])
+    expect(@user.searches.count).to eq 1
+    expect(@user.searches.first.query).to eq 'hello world how are you?'
+  end
+
   it 'validates search if query is present' do
     search = @user.searches.build(query: 'test')
     expect(search.valid?).to be true
