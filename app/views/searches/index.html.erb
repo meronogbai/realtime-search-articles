@@ -1,3 +1,4 @@
 <%= content_tag :h2, 'All Searches' %>
 <%= link_to 'View top searches', top_searches_path %>
+<%= will_paginate @searches %>
 <%= render @searches %>
