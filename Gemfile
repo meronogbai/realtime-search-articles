@@ -25,12 +25,31 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Use activeadmin to create administration style interfaces
+gem 'activeadmin'
+gem 'devise'
+
+# Style your pages using bootstrap
+gem 'bootstrap', '~> 5.0.0.beta2'
+
+# Use PostgreSQL's Full Text Search with ease
+gem 'pg_search'
+
+# Use chartkick to display beautify charts
+gem 'chartkick'
+gem 'groupdate'
+
+# Paginate your resources using will_paginate
+gem 'will_paginate', '~> 3.1.0'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Use RSpec to write tests
+  gem 'rspec-rails', '~> 5.0.0'
 end
 
 group :development do
@@ -42,6 +61,10 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Visualize the db in the rails console using hirb
+  gem 'hirb'
+  # Use rubocop to lint your code
+  gem 'rubocop', '~> 0.81.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

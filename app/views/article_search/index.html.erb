@@ -1,0 +1,14 @@
+<div data-controller="search">
+  <div class="hero text-white mb-3">
+    <h1 class="fw-bold py-3">How can we help you?</h1>
+    <%= text_field_tag :query,
+      nil,
+      autocomplete: 'off',
+      placeholder: 'Search for answers',
+      class: 'form-control px-5 py-2 w-75',
+      data: { action: 'debounced:input->search#realtimeSearch' } %>
+  </div>
+    <h2 data-search-target="title"></h2>
+  <ul class="list-group" data-search-target="articles">
+  </ul>
+</div>
