@@ -1,1 +1,24 @@
 @import "bootstrap";
+
+.pagination {
+  @extend .my-3, .d-flex, .justify-content-center, .gap-1;
+
+  a, span, em {
+    @extend .py-1, .px-3, .border, .border-primary;
+  }
+
+  .disabled {
+    @extend .text-secondary, .border-secondary;
+  }
+
+  .current {
+    @extend .fw-bold, .bg-primary, .text-white;
+  }
+
+  a {
+    @extend .text-decoration-none, .text-primary;
+    &:hover, &:focus {
+      @extend .bg-primary, .text-white;
+    }
+  }
+}
