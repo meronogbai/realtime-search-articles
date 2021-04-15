@@ -4,11 +4,13 @@ export default class extends Controller {
   static targets = [ "title", "articles" ]
 
   realtimeSearch(event) {
+    if (event.code === 'Backspace') return
+    console.log(event.code)
     const value = event.target.value
     fetch(`/search?query=${value}`, { headers: { accept: "application/json" } })
     .then(response => response.json())
     .then(data => {
-      this.titleTarget.innerHTML = data.articles.length == 0 ? "": "Search results"
+      this.titleTarget.innerHTML = data.articles.length === 0 ? "": "Search results"
       let articlesHTML = ""
       data.articles.forEach(article => {
         articlesHTML += this.articleTemplate(article)
